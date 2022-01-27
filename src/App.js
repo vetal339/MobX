@@ -1,11 +1,14 @@
 import './App.css';
+import MyCounter from "./component/counter/MyCounter";
 
-function App() {
-  return (
-    <div className="App">
 
-    </div>
-  );
+
+function App(){
+    return (
+        <div>
+            <MyCounter />
+        </div>
+    )
 }
 
 export default App;
