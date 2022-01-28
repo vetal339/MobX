@@ -2,21 +2,16 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
-import {spy} from "mobx";
-import {configure} from "@testing-library/react";
+import {configure} from "mobx";
 
-configure({
-    reactionScheduler: (f) => {
-        setTimeout(f)
-    },
-})
+setTimeout(() =>
+    configure({
+        enforceActions: "never",
+        reactionScheduler: (f) => setTimeout(f)
+    }),
+)
 
 
-spy((ev) => {
-    if (ev.type.includes("action")){
-        console.log(ev)
-    }
-})
 
 ReactDOM.render(
   <React.StrictMode>
