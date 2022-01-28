@@ -1,7 +1,8 @@
 import React from 'react';
-import { autorun, makeAutoObservable,} from 'mobx';
+import {makeAutoObservable, runInAction} from 'mobx';
 import {observer} from "mobx-react";
 
+const delay = (ms) => new Promise((_) => setTimeout(_, ms))
 
 class Store{
     constructor() {
@@ -9,42 +10,35 @@ class Store{
     }
     count = 0;
 
-    inc = () => {
-        this.count++
+    inc = async () => {
+        await delay(10)
+        runInAction(() => {
+            this.count++
+            this.count++
+            this.count++
+        })
     }
 
     dec = () => {
         this.count--
     }
+}
 
-    get double() {
-        return this.count * 2
-    }
-}
-const TestComp = () => {
-    console.log("render", new Date())
-    return <div> test </div>
-}
 
 export const counterStore = new Store();
 
-autorun(() => {
-    console.log(counterStore.count)
-})
 
-
-const MyCounter = observer(() => {
+const MyCounter = () => {
+    const {count, inc, dec} = counterStore
     return (
         <div className="App">
-            <h1>{counterStore.count}</h1>
-            <TestComp />
-            <h2>{counterStore.double}</h2>
+            <h1>{count}</h1>
 
-            <button onClick={counterStore.inc}>+</button>
-            <button onClick={counterStore.dec}>-</button>
+            <button onClick={inc}>+</button>
+            <button onClick={dec}>-</button>
         </div>
     )
-})
+}
 
 
-export default MyCounter;
+export default observer(MyCounter);

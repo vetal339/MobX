@@ -1,3 +1,4 @@
+import React from "react";
 import './App.css';
 import MyCounter from "./component/counter/MyCounter";
 
