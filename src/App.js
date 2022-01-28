@@ -1,25 +1,31 @@
 import React from "react";
 import './App.css';
 import { observer } from "mobx-react";
-import { booksStore } from "./components/booksStore";
-import {Input} from "./components/input";
+import {booksStore} from "./pages/books/store";
 
 
-function App(){
-    const { isLoading, search, books } = bookStore
+import {Spin} from "./components/Spin";
+import Search from "./pages/books/Search";
+
+
+
+const App = () => {
+    const { isLoading, books } = booksStore
+
     return (
         <div>
-            <Input isLoading = {isLoading} onSearch={search} />
+            <Search />
 
-            <Spin isLoading={isLoading}  />
+            <Spin isLoading={isLoading} />
 
-            {books.map(({ key, cover, title, author }) (
+            {books.map(({ key, cover, title, author }) => (
                 <div key={key}>
                     <img
                         src={`https://covers.openlibrary.org/b/id/${cover}-M.jpg`}
                         className="cover"
                         alt=""
                     />
+
                     <div>
                         {title}
                         <br />
@@ -33,4 +39,4 @@ function App(){
     )
 }
 
-export default App;
+export default observer(App)

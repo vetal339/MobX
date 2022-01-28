@@ -1,13 +1,14 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import App from './App';
+import App from "./App";
 import {configure} from "mobx";
 
 setTimeout(() =>
     configure({
         enforceActions: "never",
         reactionScheduler: (f) => setTimeout(f)
+
     }),
 )
 
